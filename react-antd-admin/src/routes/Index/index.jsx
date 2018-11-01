@@ -2,8 +2,29 @@ import React, {Component} from 'react';
 import 'antd/dist/antd.css';
 import { Layout, Menu, Icon } from 'antd';
 import './style.css';
+import TreeNav from "../components/TreeNav";
 
 const { Header, Sider, Content } = Layout;
+
+const menus =[
+    {
+        title: '输入组件',
+        icon: 'edit',
+        key: '/home/entry',
+        subs: [
+            {
+                key: '/home/entry/form',
+                title: '表单',
+                icon: '',
+                subs: [
+                    {key: '/home/entry/form/basic-form', title: '基础表单', icon: ''},
+                    {key: '/home/entry/form/step-form', title: '分步表单', icon: ''}
+                ]
+            },
+            {key: '/home/entry/upload', title: '上传', icon: ''},
+        ]
+    }
+]
 
 class Index extends React.Component {
     state = {
@@ -19,26 +40,8 @@ class Index extends React.Component {
     render() {
         return (
             <Layout>
-                <Sider
-                    trigger={null}
-                    collapsible
-                    collapsed={this.state.collapsed}
-                >
-                    <div className="logo" />
-                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-                        <Menu.Item key="1">
-                            <Icon type="user" />
-                            <span>nav 1</span>
-                        </Menu.Item>
-                        <Menu.Item key="2">
-                            <Icon type="video-camera" />
-                            <span>nav 2</span>
-                        </Menu.Item>
-                        <Menu.Item key="3">
-                            <Icon type="upload" />
-                            <span>nav 3</span>
-                        </Menu.Item>
-                    </Menu>
+                <Sider trigger={null} collapsible collapsed={this.state.collapsed} >
+                    <TreeNav menus={menus}/>
                 </Sider>
                 <Layout>
                     <Header style={{ background: '#fff', padding: 0 }}>
