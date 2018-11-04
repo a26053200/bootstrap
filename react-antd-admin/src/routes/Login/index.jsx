@@ -10,12 +10,14 @@ const { Header, Footer, Sider, Content } = Layout;
 class Login extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
-        this.props.form.validateFields((err, values) => {
-            if (!err) {
-                console.log('Received values of form: ', values);
-            }
-        });
-        this.props.history.push('index');
+        // this.props.form.validateFields((err, values) => {
+        //     if (!err) {
+        //         console.log('Received values of form: ', values);
+        //     }
+        // });
+        const {from} = this.props.location.state || {from: {pathname: '/'}}
+        this.props.history.push(from)
+        //this.props.history.push('/index');
     }
 
     render() {

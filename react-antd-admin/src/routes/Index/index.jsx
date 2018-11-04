@@ -2,13 +2,19 @@ import React, {Component} from 'react';
 import 'antd/dist/antd.css';
 import { Layout, Menu, Icon } from 'antd';
 import './style.css';
-import TreeNav from "../components/TreeNav";
+import TreeNav from "../../components/TreeNav/index";
+import MainContent from "../../components/MainContent/index";
 
 const { Header, Sider, Content } = Layout;
 
 const menus =[
     {
-        title: '输入组件',
+        title: 'Home',
+        icon: 'home',
+        key: '/home',
+    },
+    {
+        title: '卖家',
         icon: 'edit',
         key: '/home/entry',
         subs: [
@@ -51,8 +57,8 @@ class Index extends React.Component {
                             onClick={this.toggle}
                         />
                     </Header>
-                    <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
-                        Content
+                    <Content>
+                        <MainContent />
                     </Content>
                 </Layout>
             </Layout>

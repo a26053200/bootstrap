@@ -34,6 +34,7 @@ class TreeNav extends Component {
                 openKeys: [latestOpenKey]
             })
         }
+        console.log("latestOpenKey:" + latestOpenKey);
     }
     // 渲染树枝节点
     renderMenuItem = ({key, icon, title,}) => {
@@ -59,14 +60,22 @@ class TreeNav extends Component {
         )
     }
 
+    menuClick = key => {
+        //this.setState({selectedKeys: [key]});
+        //console.log(this.state);
+        // 响应式布局控制小屏幕点击菜单时隐藏菜单操作
+        //const { popoverHide } = this.props;
+        //popoverHide && popoverHide();
+    };
+
     render() {
         const {openKeys, selectedKeys} = this.state
         return (
-            <div style={{height: '100vh',overflowY:'scroll'}}>
+            <div style={{height: '100vh',overflowY:'auto'}}>
                 <div style={styles.logo}></div>
                 <Menu
                     onOpenChange={this.onOpenChange}
-                    onClick={({key}) => this.setState({selectedKeys: [key]})}
+                    onClick={this.menuClick}
                     openKeys={openKeys}
                     selectedKeys={selectedKeys}
                     theme={this.props.theme ? this.props.theme : 'dark'}
