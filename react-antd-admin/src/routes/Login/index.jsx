@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import 'antd/dist/antd.css';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
-import { Layout } from 'antd';
 import './style.css';
 
 const FormItem = Form.Item;
-const { Header, Footer, Sider, Content } = Layout;
 
 class Login extends Component {
     handleSubmit = (e) => {

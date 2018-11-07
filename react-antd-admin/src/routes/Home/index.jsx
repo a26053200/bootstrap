@@ -1,6 +1,7 @@
 import React from 'react'
 import {Carousel} from 'antd'
 //import './style.css'
+import MyBreadcrumb from "../../components/MyBreadcrumb/index";
 
 const imgs = [
     '1',
@@ -11,13 +12,15 @@ const imgs = [
 
 class Home extends React.Component {
     render() {
+        const paths = this.props.match.params.path.split(",")
         return (
-            <div style={styles.bg} className='home'>
+            <div className='home'>
+                <MyBreadcrumb paths={paths} />
                 <Carousel arrows effect='fade' className='size'>
                     <div><h3>{imgs[0]}</h3></div>
-                    <div><h3>{imgs[0]}</h3></div>
-                    <div><h3>{imgs[0]}</h3></div>
-                    <div><h3>{imgs[0]}</h3></div>
+                    <div><h3>{imgs[1]}</h3></div>
+                    <div><h3>{imgs[2]}</h3></div>
+                    <div><h3>{imgs[3]}</h3></div>
                 </Carousel>
             </div>
         )
