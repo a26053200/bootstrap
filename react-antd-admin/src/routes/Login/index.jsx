@@ -3,6 +3,8 @@ import 'antd/dist/antd.css';
 import {Form, Icon, Input, Button, Checkbox} from 'antd';
 import $ from 'jquery';
 import './style.css';
+import AppConfig from '../../configs/AppConfig'
+import AppData from '../../AppData'
 import svgpath from 'svgpath';
 import qr from 'qr-image';
 
@@ -20,18 +22,13 @@ class Login extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault();
-        //const {from} = this.props.location.state || {from: {pathname: '/'}}
-        //this.props.history.push(from);
+
 
         //请求扫码登录
-        const srvUrl = "http://127.0.0.1:8090/";
-        var data = {};
-        data.server = "BusinessServer";
-        data.action = "seller@web_rqst_login_QR_code";
-        console.log("Request login QR code:" + srvUrl);
+        console.log("Request login QR code:" + AppConfig.hostUrl);
         var _this = this
         //发送数据时 用JSON.stringify转换一下
-        $.post(srvUrl, JSON.stringify(data),
+        $.post(AppConfig.hostUrl, JSON.stringify(AppConfig.Rqst_QR_Code),
             function (result, status) {
                 if (result) {
                     var json = JSON.parse(result);
@@ -55,13 +52,9 @@ class Login extends Component {
     loginRqst = () => {
         //请求登录
         var _this = this;
-        const srvUrl = "http://127.0.0.1:8090/";
-        var data = {};
-        data.server = "BusinessServer";
-        data.action = "seller@web_login";
-        data.scan_id = this.state.QR_code;
+        AppConfig.Scan_Login.scan_id = this.state.QR_code;
         //发送数据时 用JSON.stringify转换一下
-        $.post(srvUrl, JSON.stringify(data),
+        $.post(AppConfig.hostUrl, JSON.stringify(AppConfig.Scan_Login),
             function (result, status) {
                 if (result) {
                     var json = JSON.parse(result);
@@ -69,6 +62,13 @@ class Login extends Component {
                     if(scanState == "Fail" || scanState == "Success")
                     {
                         clearInterval(_this.timerID);
+                        //保存玩家信息
+                        AppData.sellerInfo = json.data.seller_info;
+                        AppData.token = json.data.token
+
+                        //跳转到主页
+                        const {from} = _this.props.location.state || {from: {pathname: '/'}}
+                        _this.props.history.push(from);
                     }
                     console.log("scanState:" + scanState);
                 } else {

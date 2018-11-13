@@ -25,7 +25,7 @@ function _getCookie (name) {
                 end = document.cookie.length
             }
 
-            return unescape(document.cookie.substring(start, end))
+            return decodeURIComponent(document.cookie.substring(start, end))
         }
     }
     return ''
@@ -34,6 +34,6 @@ function _getCookie (name) {
 function _setCookie (name, value, expire) {
     let date = new Date()
     date.setDate(date.getDate() + expire)
-    document.cookie = name + '=' + escape(value) + '; path=/' +
+    document.cookie = name + '=' + encodeURIComponent(value) + '; path=/' +
         (expire ? ';expires=' + date.toGMTString() : '')
 }

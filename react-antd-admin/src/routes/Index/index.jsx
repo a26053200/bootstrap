@@ -4,6 +4,8 @@ import {Layout, Menu, Icon} from 'antd';
 import './style.css';
 import TreeNav from "../../components/TreeNav/index";
 import MainContent from "../../components/MainContent/index";
+import AppConfig from '../../configs/AppConfig'
+import AppData from '../../AppData'
 
 const {Header, Sider, Content} = Layout;
 
@@ -145,6 +147,7 @@ class Index extends React.Component {
     }
 
     render() {
+        const {sellerInfo} = AppData;
         return (
             <Layout>
                 <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
@@ -157,6 +160,16 @@ class Index extends React.Component {
                             type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
                             onClick={this.toggle}
                         />
+                        <div style={{lineHeight: '64px', float: 'right'}}>
+                            <ul className='header-ul'>
+                                <li onClick={() => this.setState({count: 0})}>
+                                    <span>{sellerInfo.profile_wx_nickname}</span>
+                                </li>
+                                <li>
+                                    <img src={sellerInfo.profile_wx_avatar_url} alt=""/>
+                                </li>
+                            </ul>
+                        </div>
                     </Header>
                     <Content>
                         <MainContent/>
