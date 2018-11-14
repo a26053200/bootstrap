@@ -16,15 +16,25 @@ const AppConfig = {
     token : null,
 
     //===============
-    // Action
+    // Login Action
     //===============
+    /**
+     * 测试用快捷登录
+     */
+    Quick_Login:
+        {
+            server: "BusinessServer",
+            action: "seller@web_login",
+            profileId: "245314304004329472"
+        },
+
     /**
      * 获取二维码
      */
     Rqst_QR_Code:
         {
             server: "BusinessServer",
-            action: "seller@web_rqst_login_QR_code",
+            action: "seller@web_rqst_login_QR_code"
         },
 
     /**
@@ -34,6 +44,18 @@ const AppConfig = {
         {
             server: "BusinessServer",
             action: "seller@web_scan_login",
+        },
+
+    //===============
+    // Product Action
+    //===============
+    /**
+     * 添加品牌
+     */
+    Product_Add_Brand:
+        {
+            server: "BusinessServer",
+            action: "product@add_brand"
         },
 };
 export default AppConfig;

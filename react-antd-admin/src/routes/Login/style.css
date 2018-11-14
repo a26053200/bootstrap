@@ -1,18 +1,4 @@
-.login-qrcode {
-    width: 200px;
-    height: 200px;
-    padding: 36px;
-    max-width: 320px;
-    background: #fff;
-}
-.login-form {
-    width: 100%;
-    height: 140px;
-    padding: 36px;
-    max-width: 320px;
-    background: #fff;
-}
-.login-form-container {
+.login-container {
     position: fixed;
     display: flex;
     justify-content: center;
@@ -24,10 +10,49 @@
     height: 100%;
     z-index: 99;
     background: #f3f3f3;
- }
-.login-form-forgot {
-    float: contour;
+}
+
+.login-form {
+    width: 100%;
+    height: 256px;
+    padding: 96px 64px;
+    max-width: 256px;
+    background: #fff;
 }
 .login-form-button {
     width: 100%;
+    height: 32px;
+    padding: 0px;
+    max-width: 256px;
+}
+.login-qrcode {
+    width: 100%;
+    height: 256px;
+    padding: 0px 0px;
+    max-width: 256px;
+    background: #fff;
+}
+.login-qrcode-header {
+    width: 100%;
+    height: 64px;
+    padding: 16px 64px;
+    max-width: 256px;
+    background: #fff;
+}
+.login-qrcode-code {
+    width: 128px;
+    height: 128px;
+    padding: 0px 64px;
+    max-width: 256px;
+    background: #fff;
+}
+.login-qrcode-bottom {
+    width: 100%;
+    height: 64px;
+    padding: 16px 52px;
+    max-width: 256px;
+    background: #fff;
+}
+.login-qrcode-mp {
+    color: #dc4d49;
 }
