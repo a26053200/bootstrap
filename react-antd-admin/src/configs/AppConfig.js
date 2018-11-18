@@ -25,7 +25,7 @@ const AppConfig = {
         {
             server: "BusinessServer",
             action: "seller@web_login",
-            profileId: "245314304004329472"
+            profileId: "oqZlN5Qw3-Ch1WqidzgW9DX5uGg0"
         },
 
     /**
@@ -49,6 +49,14 @@ const AppConfig = {
     //===============
     // Product Action
     //===============
+    /**
+     * 品牌列表
+     */
+    Product_Brand_List:
+        {
+            server: "BusinessServer",
+            action: "product@brand_list"
+        },
     /**
      * 添加品牌
      */

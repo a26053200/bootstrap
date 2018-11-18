@@ -12,5 +12,15 @@ const AppData = {
      * 令牌
      */
     token : null,
+
+    /**
+     * 品牌列表
+     */
+    brandList : null,
+
+    /**
+     * 品牌信息
+     */
+    brandInfo : null,
 }
 export default AppData;
