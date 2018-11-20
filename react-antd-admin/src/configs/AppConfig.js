@@ -52,18 +52,82 @@ const AppConfig = {
     /**
      * 品牌列表
      */
-    Product_Brand_List:
+    Get_Brand_List:
         {
             server: "BusinessServer",
-            action: "product@brand_list"
+            action: "brand@brand_list"
         },
     /**
      * 添加品牌
      */
-    Product_Add_Brand:
+    Add_Brand:
         {
             server: "BusinessServer",
-            action: "product@add_brand"
+            action: "brand@add_brand"
+        },
+    /**
+     * 品类列表
+     */
+    Get_Category_List:
+        {
+            server: "BusinessServer",
+            action: "category@category_list"
+        },
+    /**
+     * 添加品类
+     */
+    Add_Category:
+        {
+            server: "BusinessServer",
+            action: "category@add_category"
+        },
+    /**
+     * 规格列表
+     */
+    Get_Spec_List:
+        {
+            server: "BusinessServer",
+            action: "spec@spec_list"
+        },
+    /**
+     * 添加规格
+     */
+    Add_Spec:
+        {
+            server: "BusinessServer",
+            action: "spec@add_spec"
+        },
+    /**
+     * 删除规格
+     */
+    Del_Spec:
+        {
+            server: "BusinessServer",
+            action: "spec@delete_spec"
+        },
+    /**
+     * 修改规格
+     */
+    Mod_Spec:
+        {
+            server: "BusinessServer",
+            action: "spec@modfiy_spec"
+        },
+    /**
+     * 规格值列表
+     */
+    Get_Spec_Value_List:
+        {
+            server: "BusinessServer",
+            action: "spec@category_list"
+        },
+    /**
+     * 添加规格值
+     */
+    Add_Spec_Value:
+        {
+            server: "BusinessServer",
+            action: "spec@add_category"
         },
 };
 export default AppConfig;

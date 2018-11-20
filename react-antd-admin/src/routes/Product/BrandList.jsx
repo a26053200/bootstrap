@@ -5,7 +5,7 @@ import MyBreadcrumb from "../../components/MyBreadcrumb/index";
 import $ from "jquery";
 import AppConfig from "../../configs/AppConfig";
 import AppData from '../../AppData'
-import BrandTableColumns from './ProductConfig'
+import {BrandTableColumns} from './ProductConfig'
 
 const FormItem = Form.Item;
 
@@ -13,12 +13,7 @@ class BrandList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            brandList : [
-                {
-                    brand_id:"sss",
-                    brand_name:"ddd"
-                }
-            ],
+            brandList : [],
         };
     }
 
@@ -31,7 +26,7 @@ class BrandList extends Component {
     getBrandList = () => {
         console.log("getBrandList..");
         let _this = this;
-        $.post(AppConfig.hostUrl, JSON.stringify(AppConfig.Product_Brand_List),
+        $.post(AppConfig.hostUrl, JSON.stringify(AppConfig.Get_Brand_List),
             function (result, status) {
                 if (result) {
                     let json = JSON.parse(result);
@@ -52,8 +47,8 @@ class BrandList extends Component {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                AppConfig.Product_Add_Brand.name = values.brandName;
-                $.post(AppConfig.hostUrl, JSON.stringify(AppConfig.Product_Add_Brand),
+                AppConfig.Add_Brand.name = values.brandName;
+                $.post(AppConfig.hostUrl, JSON.stringify(AppConfig.Add_Brand),
                     function (result, status) {
                         if (result) {
                             let json = JSON.parse(result);
@@ -76,7 +71,7 @@ class BrandList extends Component {
         return (
             <div>
                 <MyBreadcrumb paths={paths} />
-                <Form layout='horizontal' style={{width: '70%', margin: '0 auto'}} onSubmit={this.handleSubmit}>
+                <Form layout='inline' style={{width: '70%', margin: '0 auto'}} onSubmit={this.handleSubmit}>
                     <FormItem  label='品牌名称'>
                         {getFieldDecorator('brandName', {
                             rules: [{required: true, message: '品牌名称不能为空!', whitespace: true}],
@@ -88,7 +83,7 @@ class BrandList extends Component {
                         <Button type="primary" htmlType="submit">Add</Button>
                     </FormItem>
                 </Form>
-                <Table rowKey="brand_id" columns={BrandTableColumns} dataSource={brandList} />
+                <Table rowKey="id" columns={BrandTableColumns} dataSource={brandList} />
             </div>
         )
     }
