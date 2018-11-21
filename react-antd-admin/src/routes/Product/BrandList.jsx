@@ -6,6 +6,7 @@ import $ from "jquery";
 import AppConfig from "../../configs/AppConfig";
 import AppData from '../../AppData'
 import {BrandTableColumns} from './ProductConfig'
+import {sendAction} from "../../utils/Net";
 
 const FormItem = Form.Item;
 
@@ -26,20 +27,13 @@ class BrandList extends Component {
     getBrandList = () => {
         console.log("getBrandList..");
         let _this = this;
-        $.post(AppConfig.hostUrl, JSON.stringify(AppConfig.Get_Brand_List),
-            function (result, status) {
-                if (result) {
-                    let json = JSON.parse(result);
-                    //保存玩家信息
-                    AppData.brandList = json.data.brand_list;
-                    _this.setState({
-                        brandList : json.data.brand_list
-                    })
-                    console.log("json.data:" + JSON.stringify(json));
-                } else {
-                    console.log("get Brand List fail:" + status);
-                }
-            });
+        sendAction(AppConfig.Get_Brand_List, function (json)
+        {
+            AppData.brandList = json.data.brand_list;
+            _this.setState({
+                brandList : json.data.brand_list
+            })
+        });
     };
 
     handleSubmit = (e) => {

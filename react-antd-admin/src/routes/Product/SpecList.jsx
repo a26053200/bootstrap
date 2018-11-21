@@ -6,88 +6,66 @@ import AppConfig from "../../configs/AppConfig";
 import AppData from "../../AppData";
 import SpecValueList from '../../routes/Product/SpecValueList';
 import {sendAction} from '../../utils/Net';
+import NormalTable from "../../components/Tables/NormalTable";
 
 const FormItem = Form.Item;
 
 class SpecList extends Component
 {
-
-
     constructor(props)
     {
         super(props);
         this.state = {
             specList: [],
+            formData :
+                {
+                    listRqstData: AppConfig.Get_Spec_List,
+                    listCallback: this.OnGetSpecList,
+                    modCallback: this.onModify,
+                    delCallback: this.onDelete,
+                }
         };
     }
 
-    componentDidMount()
+    OnGetSpecList = (json) =>
     {
-        let _this = this;
-        _this.getSpecList();
-    }
-
-    //获取品牌列表
-    getSpecList = () =>
-    {
-        let _this = this;
-        sendAction(AppConfig.Get_Spec_List, function (json)
-        {
-            AppData.specList = json.data.spec_list;
-            _this.setState({
-                specList: json.data.spec_list
-            })
-        })
+        let list =  json.data.beanList;
+        AppData.specList = list;
+        return list;
     };
 
     handleSubmit = (e) =>
     {
-
         e.preventDefault();
         this.props.form.validateFields((err, values) =>
         {
             AppConfig.Add_Spec.name = values.specName;
             sendAction(AppConfig.Add_Spec, function (json)
             {
-                _this.getSpecList();
+                //_this.getSpecList();
             })
         });
     };
-
-    onModifyName = (record) =>
+    onModify = (record,callback) =>
     {
         let _this = this;
-        AppConfig.Mod_Spec.name = record.name;
-        sendAction(AppConfig.Mod_Spec, function (json)
-        {
-            _this.getSpecList();
-        })
+
     };
 
-    onModifyNumber = (record) =>
+    onDelete = (record,callback) =>
     {
         let _this = this;
-        AppConfig.Mod_Spec.name = record.name;
-        sendAction(AppConfig.Mod_Spec, function (json)
+        //弹出确认框
+        AppConfig.Del_Spec.id = record.id
+        sendAction(AppConfig.Del_Spec, function ()
         {
-            _this.getSpecList();
+            callback();
         })
     };
-
-    onDelete = (record) =>
-    {
-        let _this = this;
-        AppConfig.Del_Spec.id = record.id;
-        sendAction(AppConfig.Del_Spec, function (json)
-        {
-            _this.getSpecList();
-        })
-    };
-
     render()
     {
         const {getFieldDecorator} = this.props.form;
-        const {specList} = this.state;
+        const {specList,formData} = this.state;
         const paths = this.props.match.params.path.split(",");
         const Columns =
             [
@@ -106,16 +84,6 @@ class SpecList extends Component
                 {
                     title: '添加时间',
                     dataIndex: 'addTime',
-                },
-                {
-                    title: '操作',
-                    key: 'action',
-                    render: (record) =>
-                        <span>
-                            <a href="javascript:;" name="modify" onClick={() => this.onModify(record)}>修改</a>
-                            <Divider type="vertical"/>
-                            <a href="javascript:;" name="delete" onClick={() => this.onDelete(record)}>删除</a>
-                        </span>
                 }
             ];
         return (
@@ -134,11 +102,10 @@ class SpecList extends Component
                         <Button type="primary" htmlType="submit">Add</Button>
                     </FormItem>
                 </Form>
-                <Table
+                <NormalTable
                     columns={Columns}
-                    expandedRowRender={record => <SpecValueList specId={record.id} style={{margin: 0}}/>}
-                    dataSource={specList}
-                    size='small'
+                    //expandedRowRender={record => <SpecValueList specId={record.id} style={{margin: 0}}/>}
+                    formData = {formData}
                 />
             </div>
         )

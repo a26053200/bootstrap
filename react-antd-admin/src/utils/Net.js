@@ -11,6 +11,7 @@ const hostUrl = AppConfig.hostUrl;
 export function sendAction(actionData, callback)
 {
     console.log("Send action:" + actionData.action);
+    actionData.client = "web";
     let _this = this;
     $.post(hostUrl, JSON.stringify(actionData),
         function (result, status)

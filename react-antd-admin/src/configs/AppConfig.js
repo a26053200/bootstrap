@@ -55,7 +55,7 @@ const AppConfig = {
     Get_Brand_List:
         {
             server: "BusinessServer",
-            action: "brand@brand_list"
+            action: "brand@list_brand"
         },
     /**
      * 添加品牌
@@ -71,7 +71,7 @@ const AppConfig = {
     Get_Category_List:
         {
             server: "BusinessServer",
-            action: "category@category_list"
+            action: "category@list_category"
         },
     /**
      * 添加品类
@@ -87,7 +87,7 @@ const AppConfig = {
     Get_Spec_List:
         {
             server: "BusinessServer",
-            action: "spec@spec_list"
+            action: "spec@list_spec"
         },
     /**
      * 添加规格
@@ -103,7 +103,7 @@ const AppConfig = {
     Del_Spec:
         {
             server: "BusinessServer",
-            action: "spec@delete_spec"
+            action: "spec@del_spec"
         },
     /**
      * 修改规格
@@ -111,7 +111,7 @@ const AppConfig = {
     Mod_Spec:
         {
             server: "BusinessServer",
-            action: "spec@modfiy_spec"
+            action: "spec@mod_spec"
         },
     /**
      * 规格值列表
@@ -119,7 +119,7 @@ const AppConfig = {
     Get_Spec_Value_List:
         {
             server: "BusinessServer",
-            action: "spec@category_list"
+            action: "spec@list_specValue"
         },
     /**
      * 添加规格值
@@ -127,7 +127,7 @@ const AppConfig = {
     Add_Spec_Value:
         {
             server: "BusinessServer",
-            action: "spec@add_category"
+            action: "spec@add_specValue"
         },
 };
 export default AppConfig;

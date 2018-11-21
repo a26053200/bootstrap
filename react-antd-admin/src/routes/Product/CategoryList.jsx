@@ -6,6 +6,7 @@ import AppConfig from "../../configs/AppConfig";
 import $ from "jquery";
 import AppData from "../../AppData";
 import {CategoryTableColumns} from './ProductConfig'
+import {sendAction} from '../../utils/Net';
 
 const FormItem = Form.Item;
 
@@ -26,20 +27,13 @@ class CategoryList extends Component {
     getCategoryList = () => {
         console.log("getCategoryList..");
         let _this = this;
-        $.post(AppConfig.hostUrl, JSON.stringify(AppConfig.Get_Category_List),
-            function (result, status) {
-                if (result) {
-                    let json = JSON.parse(result);
-                    //保存玩家信息
-                    AppData.categoryList = json.data.category_list;
-                    _this.setState({
-                        categoryList : json.data.category_list
-                    })
-                    console.log("json.data:" + JSON.stringify(json));
-                } else {
-                    console.log("get Category List fail:" + status);
-                }
-            });
+        sendAction(AppConfig.Get_Category_List, function (json)
+        {
+            AppData.categoryList = json.data.category_list;
+            _this.setState({
+                categoryList : json.data.category_list
+            })
+        });
     };
 
     handleSubmit = (e) => {

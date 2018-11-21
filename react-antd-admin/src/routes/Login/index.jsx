@@ -6,6 +6,7 @@ import './style.css';
 import AppConfig from '../../configs/AppConfig'
 import AppData from '../../AppData'
 import QRCode from 'qrcode.react';
+import {sendAction} from '../../utils/Net';
 
 class Login extends Component {
     constructor(props) {
@@ -25,21 +26,15 @@ class Login extends Component {
     quickLogin = () => {
         console.log("start quick login..");
         let _this = this;
-        $.post(AppConfig.hostUrl, JSON.stringify(AppConfig.Quick_Login),
-            function (result, status) {
-                if (result) {
-                    let json = JSON.parse(result);
-                    //保存玩家信息
-                    AppData.sellerInfo = json.data.seller_info;
-                    AppData.token = json.data.token;
-                    //跳转到主页
-                    const {from} = _this.props.location.state || {from: {pathname: '/index'}};
-                    _this.props.history.push(from);
-                    console.log("quick login success");
-                } else {
-                    console.log("quick login fail:" + status);
-                }
-            });
+        sendAction(AppConfig.Quick_Login,function (json)
+        {
+            //保存玩家信息
+            AppData.sellerInfo = json.data.seller_info;
+            AppData.token = json.data.token;
+            //跳转到主页
+            const {from} = _this.props.location.state || {from: {pathname: '/index'}};
+            _this.props.history.push(from);
+        });
     };
 
     handleSubmit = (e) => {
