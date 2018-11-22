@@ -15,6 +15,7 @@ const AppConfig = {
      */
     token : null,
 
+    BusinessServer : "BusinessServer",
     //===============
     // Login Action
     //===============
@@ -24,7 +25,7 @@ const AppConfig = {
     Quick_Login:
         {
             server: "BusinessServer",
-            action: "seller@web_login",
+            action: "seller@web_quick_login",
             profileId: "oqZlN5Qw3-Ch1WqidzgW9DX5uGg0"
         },
 
@@ -119,7 +120,7 @@ const AppConfig = {
     Get_Spec_Value_List:
         {
             server: "BusinessServer",
-            action: "spec@list_specValue"
+            action: "specValue@viceList_specValue"
         },
     /**
      * 添加规格值
@@ -127,7 +128,23 @@ const AppConfig = {
     Add_Spec_Value:
         {
             server: "BusinessServer",
-            action: "spec@add_specValue"
+            action: "specValue@add_specValue"
+        },
+    /**
+     * 删除规格值
+     */
+    Del_Spec_Value:
+        {
+            server: "BusinessServer",
+            action: "specValue@del_specValue"
+        },
+    /**
+     * 修改规格值
+     */
+    Mod_Spec_Value:
+        {
+            server: "BusinessServer",
+            action: "specValue@mod_specValue"
         },
 };
 export default AppConfig;

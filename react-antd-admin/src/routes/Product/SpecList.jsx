@@ -16,10 +16,13 @@ class SpecList extends Component
     {
         super(props);
         this.state = {
-            specList: [],
-            formData :
+            formData:
                 {
-                    listRqstData: AppConfig.Get_Spec_List,
+                    listRqstData:
+                    {
+                        server : AppConfig.Get_Spec_List.server,
+                        action : AppConfig.Get_Spec_List.action
+                    },
                     listCallback: this.OnGetSpecList,
                     modCallback: this.onModify,
                     delCallback: this.onDelete,
@@ -29,7 +32,7 @@ class SpecList extends Component
 
     OnGetSpecList = (json) =>
     {
-        let list =  json.data.beanList;
+        let list = json.data.beanList;
         AppData.specList = list;
         return list;
     };
@@ -39,22 +42,23 @@ class SpecList extends Component
         e.preventDefault();
         this.props.form.validateFields((err, values) =>
         {
-            AppConfig.Add_Spec.name = values.specName;
-            sendAction(AppConfig.Add_Spec, function (json)
+            if (!err)
             {
-                //_this.getSpecList();
-            })
+                AppConfig.Add_Spec.name = values.specName;
+                sendAction(AppConfig.Add_Spec, function (json)
+                {
+                    //_this.getSpecList();
+                })
+            }
         });
     };
-    onModify = (record,callback) =>
+    onModify = (record, callback) =>
     {
         let _this = this;
-
     };
 
-    onDelete = (record,callback) =>
+    onDelete = (record, callback) =>
     {
-        let _this = this;
         //弹出确认框
         AppConfig.Del_Spec.id = record.id
         sendAction(AppConfig.Del_Spec, function ()
@@ -62,10 +66,24 @@ class SpecList extends Component
             callback();
         })
     };
+
+    //详情表格
+    expandedRowRender = (record, index, indent, expanded) =>
+    {
+        let specId = record.id;
+        if(expanded)
+        {
+            return (
+                <SpecValueList specId={specId} style={{margin: 0}}/>
+            );
+        }
+
+    };
+
     render()
     {
         const {getFieldDecorator} = this.props.form;
-        const {specList,formData} = this.state;
+        const {formData} = this.state;
         const paths = this.props.match.params.path.split(",");
         const Columns =
             [
@@ -104,8 +122,8 @@ class SpecList extends Component
                 </Form>
                 <NormalTable
                     columns={Columns}
-                    //expandedRowRender={record => <SpecValueList specId={record.id} style={{margin: 0}}/>}
-                    formData = {formData}
+                    expandedRowRender={this.expandedRowRender}
+                    formData={formData}
                 />
             </div>
         )

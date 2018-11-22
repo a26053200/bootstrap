@@ -31,8 +31,11 @@ class NormalTable extends Component
         columns[columns.length] = actionCol;
 
         this.state = {
-            dataList: [],       //数据
+            pagination: (props.pagination == null ? false : props.pagination),
+            showHeader: (props.showHeader == null ? true : props.showHeader),
+            dataList: (props.dataList != null ? props.dataList : []),       //数据
             columns: columns,   //列
+            expandedRowRender: props.expandedRowRender,
             formData:           //表单数据
                 {
                     //列表
@@ -51,7 +54,15 @@ class NormalTable extends Component
     componentDidMount()
     {
         let _this = this;
-        _this.getDataList();
+        if(_this.state.dataList.length === 0)
+            _this.getDataList();
+    }
+
+    componentWillUnmount() {
+        console.log("componentWillUnmount")
+        this.setState({
+            dataList: []
+        })
     }
 
     //获取数据列表
@@ -62,7 +73,7 @@ class NormalTable extends Component
         sendAction(formData.listRqstData, function (json)
         {
             let list =  json.data.beanList;
-            formData.listCallback(json)
+            formData.listCallback(json);
             _this.setState({
                 dataList: list
             })
@@ -85,19 +96,44 @@ class NormalTable extends Component
         {
             _this.getDataList();
         })
-    }
+    };
 
     onDeleteCancel = (record) =>
     {
         console.log("取消删除");
-    }
+    };
+
+    //详情表格
+    onExpand = (expanded, record) =>
+    {
+        if(expanded)
+        {
+            let _this = this;
+            let formData = this.state.formData;
+            formData.listRqstData.id = record.id;
+            sendAction(formData.listRqstData, function (json)
+            {
+                let list =  json.data.beanList;
+                _this.setState({
+                    dataList: list
+                })
+            })
+        }
+    };
 
     render()
     {
-        const {columns, dataList} = this.state;
+        const {columns, dataList, expandedRowRender,pagination,showHeader} = this.state;
         return (
             <div>
-                <Table size='small' rowKey="id" columns={columns} dataSource={dataList}/>
+                <Table
+                    showHeader = {showHeader}
+                    pagination = {pagination}
+                    size='small'
+                    rowKey="id"
+                    columns={columns}
+                    expandedRowRender={expandedRowRender}
+                    dataSource={dataList}/>
             </div>
         )
     }
