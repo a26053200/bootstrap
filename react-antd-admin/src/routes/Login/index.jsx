@@ -6,7 +6,7 @@ import './style.css';
 import AppConfig from '../../configs/AppConfig'
 import AppData from '../../AppData'
 import QRCode from 'qrcode.react';
-import {sendAction} from '../../utils/Net';
+import {sendAction2Business} from '../../utils/Net';
 
 class Login extends Component {
     constructor(props) {
@@ -26,7 +26,7 @@ class Login extends Component {
     quickLogin = () => {
         console.log("start quick login..");
         let _this = this;
-        sendAction(AppConfig.Quick_Login,function (json)
+        sendAction2Business(AppConfig.Quick_Login,function (json)
         {
             //保存玩家信息
             AppData.sellerInfo = json.data.seller_info;

@@ -24,7 +24,6 @@ const AppConfig = {
      */
     Quick_Login:
         {
-            server: "BusinessServer",
             action: "seller@web_quick_login",
             profileId: "oqZlN5Qw3-Ch1WqidzgW9DX5uGg0"
         },
@@ -34,7 +33,6 @@ const AppConfig = {
      */
     Rqst_QR_Code:
         {
-            server: "BusinessServer",
             action: "seller@web_rqst_login_QR_code"
         },
 
@@ -43,7 +41,6 @@ const AppConfig = {
      */
     Scan_Login:
         {
-            server: "BusinessServer",
             action: "seller@web_scan_login",
         },
 
@@ -55,7 +52,6 @@ const AppConfig = {
      */
     Get_Brand_List:
         {
-            server: "BusinessServer",
             action: "brand@list_brand"
         },
     /**
@@ -63,7 +59,6 @@ const AppConfig = {
      */
     Add_Brand:
         {
-            server: "BusinessServer",
             action: "brand@add_brand"
         },
     /**
@@ -71,7 +66,6 @@ const AppConfig = {
      */
     Get_Category_List:
         {
-            server: "BusinessServer",
             action: "category@list_category"
         },
     /**
@@ -79,7 +73,6 @@ const AppConfig = {
      */
     Add_Category:
         {
-            server: "BusinessServer",
             action: "category@add_category"
         },
     /**
@@ -87,7 +80,6 @@ const AppConfig = {
      */
     Get_Spec_List:
         {
-            server: "BusinessServer",
             action: "spec@list_spec"
         },
     /**
@@ -95,7 +87,6 @@ const AppConfig = {
      */
     Add_Spec:
         {
-            server: "BusinessServer",
             action: "spec@add_spec"
         },
     /**
@@ -103,7 +94,6 @@ const AppConfig = {
      */
     Del_Spec:
         {
-            server: "BusinessServer",
             action: "spec@del_spec"
         },
     /**
@@ -111,7 +101,6 @@ const AppConfig = {
      */
     Mod_Spec:
         {
-            server: "BusinessServer",
             action: "spec@mod_spec"
         },
     /**
@@ -119,7 +108,6 @@ const AppConfig = {
      */
     Get_Spec_Value_List:
         {
-            server: "BusinessServer",
             action: "specValue@viceList_specValue"
         },
     /**
@@ -127,7 +115,6 @@ const AppConfig = {
      */
     Add_Spec_Value:
         {
-            server: "BusinessServer",
             action: "specValue@add_specValue"
         },
     /**
@@ -135,7 +122,6 @@ const AppConfig = {
      */
     Del_Spec_Value:
         {
-            server: "BusinessServer",
             action: "specValue@del_specValue"
         },
     /**
@@ -143,7 +129,6 @@ const AppConfig = {
      */
     Mod_Spec_Value:
         {
-            server: "BusinessServer",
             action: "specValue@mod_specValue"
         },
 };

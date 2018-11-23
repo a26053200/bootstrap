@@ -6,7 +6,7 @@ import $ from "jquery";
 import AppConfig from "../../configs/AppConfig";
 import AppData from '../../AppData'
 import {BrandTableColumns} from './ProductConfig'
-import {sendAction} from "../../utils/Net";
+import {sendAction2Business} from "../../utils/Net";
 
 const FormItem = Form.Item;
 
@@ -27,7 +27,7 @@ class BrandList extends Component {
     getBrandList = () => {
         console.log("getBrandList..");
         let _this = this;
-        sendAction(AppConfig.Get_Brand_List, function (json)
+        sendAction2Business(AppConfig.Get_Brand_List, function (json)
         {
             AppData.brandList = json.data.brand_list;
             _this.setState({

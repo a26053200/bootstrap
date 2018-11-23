@@ -6,7 +6,7 @@ import AppConfig from "../../configs/AppConfig";
 import $ from "jquery";
 import AppData from "../../AppData";
 import {CategoryTableColumns} from './ProductConfig'
-import {sendAction} from '../../utils/Net';
+import {sendAction2Business} from '../../utils/Net';
 
 const FormItem = Form.Item;
 
@@ -27,7 +27,7 @@ class CategoryList extends Component {
     getCategoryList = () => {
         console.log("getCategoryList..");
         let _this = this;
-        sendAction(AppConfig.Get_Category_List, function (json)
+        sendAction2Business(AppConfig.Get_Category_List, function (json)
         {
             AppData.categoryList = json.data.category_list;
             _this.setState({

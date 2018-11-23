@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Form, Table, Divider, Popconfirm} from 'antd';
 import 'antd/dist/antd.css';
-import {sendAction} from '../../utils/Net';
+import {sendAction2Business} from '../../utils/Net';
 
 const FormItem = Form.Item;
 
@@ -33,6 +33,7 @@ class NormalTable extends Component
         this.state = {
             pagination: (props.pagination == null ? false : props.pagination),
             showHeader: (props.showHeader == null ? true : props.showHeader),
+            bordered: (props.bordered == null ? false : props.bordered),
             dataList: (props.dataList != null ? props.dataList : []),       //数据
             columns: columns,   //列
             expandedRowRender: props.expandedRowRender,
@@ -59,7 +60,7 @@ class NormalTable extends Component
     }
 
     componentWillUnmount() {
-        console.log("componentWillUnmount")
+        //console.log("componentWillUnmount")
         this.setState({
             dataList: []
         })
@@ -70,7 +71,7 @@ class NormalTable extends Component
     {
         let _this = this;
         let formData = this.state.formData;
-        sendAction(formData.listAction, function (json)
+        sendAction2Business(formData.listAction, function (json)
         {
             let list =  json.data.beanList;
             formData.listCallback(json);

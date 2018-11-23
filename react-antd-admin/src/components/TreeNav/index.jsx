@@ -110,7 +110,7 @@ class TreeNav extends Component {
     };
 
     render() {
-        const {openKeys, selectedKeys} = this.state
+        const {openKeys, selectedKeys} = this.state;
         return (
             <div style={{height: '100vh', overflowY: 'auto'}}>
                 <div style={styles.logo}></div>
