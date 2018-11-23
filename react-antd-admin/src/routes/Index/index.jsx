@@ -129,7 +129,7 @@ const menus = [
             {
                 key: '/home/attribute/SpecList',
                 title: '添加规格',
-                icon: 'icon-add'
+                icon: 'icon-other'
             },
         ]
     }

@@ -18,7 +18,7 @@ class SpecList extends Component
         this.state = {
             formData:
                 {
-                    listRqstData:
+                    listAction:
                     {
                         server : AppConfig.Get_Spec_List.server,
                         action : AppConfig.Get_Spec_List.action
@@ -28,6 +28,8 @@ class SpecList extends Component
                     delCallback: this.onDelete,
                 }
         };
+
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     OnGetSpecList = (json) =>
@@ -40,18 +42,24 @@ class SpecList extends Component
     handleSubmit = (e) =>
     {
         e.preventDefault();
+        let _this = this;
         this.props.form.validateFields((err, values) =>
         {
             if (!err)
             {
                 AppConfig.Add_Spec.name = values.specName;
+                AppConfig.Add_Spec.number = values.specNumber;
                 sendAction(AppConfig.Add_Spec, function (json)
                 {
+                    _this.refs.specTable.getDataList();
+                    //_this.refs.input_add.val('')
+                    //_this.refs.input_number.val('')
                     //_this.getSpecList();
                 })
             }
         });
     };
+
     onModify = (record, callback) =>
     {
         let _this = this;
@@ -59,10 +67,12 @@ class SpecList extends Component
 
     onDelete = (record, callback) =>
     {
+        let _this = this;
         //弹出确认框
         AppConfig.Del_Spec.id = record.id
         sendAction(AppConfig.Del_Spec, function ()
         {
+            _this.refs.specTable.getDataList();
             callback();
         })
     };
@@ -115,12 +125,19 @@ class SpecList extends Component
                             <Input/>//ref
                         )}
                     </FormItem>
-
+                    <FormItem label='规格型号'>
+                        {getFieldDecorator('specNumber', {
+                            rules: [{required: true, message: '规格型号不能为空!', whitespace: true}],
+                        })(
+                            <Input/>//ref
+                        )}
+                    </FormItem>
                     <FormItem>
                         <Button type="primary" htmlType="submit">Add</Button>
                     </FormItem>
                 </Form>
                 <NormalTable
+                    ref="specTable"
                     columns={Columns}
                     expandedRowRender={this.expandedRowRender}
                     formData={formData}

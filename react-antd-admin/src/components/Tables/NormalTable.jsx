@@ -39,7 +39,7 @@ class NormalTable extends Component
             formData:           //表单数据
                 {
                     //列表
-                    listRqstData: props.formData.listRqstData,
+                    listAction: props.formData.listAction,
                     listCallback: props.formData.listCallback,
                     //删除
                     //delRqstData: props.formData.delRqstData,
@@ -70,7 +70,7 @@ class NormalTable extends Component
     {
         let _this = this;
         let formData = this.state.formData;
-        sendAction(formData.listRqstData, function (json)
+        sendAction(formData.listAction, function (json)
         {
             let list =  json.data.beanList;
             formData.listCallback(json);
@@ -103,23 +103,6 @@ class NormalTable extends Component
         console.log("取消删除");
     };
 
-    //详情表格
-    onExpand = (expanded, record) =>
-    {
-        if(expanded)
-        {
-            let _this = this;
-            let formData = this.state.formData;
-            formData.listRqstData.id = record.id;
-            sendAction(formData.listRqstData, function (json)
-            {
-                let list =  json.data.beanList;
-                _this.setState({
-                    dataList: list
-                })
-            })
-        }
-    };
 
     render()
     {

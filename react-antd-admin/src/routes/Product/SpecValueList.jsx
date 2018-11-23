@@ -19,7 +19,7 @@ class SpecValueList extends Component {
             specId: props.specId,
             formData :
                 {
-                    listRqstData:
+                    listAction:
                         {
                             server : AppConfig.Get_Spec_Value_List.server,
                             action : AppConfig.Get_Spec_Value_List.action,
@@ -49,6 +49,8 @@ class SpecValueList extends Component {
                 AppConfig.Add_Spec_Value.value = values.specValue;
                 sendAction(AppConfig.Add_Spec_Value, function (json)
                 {
+                    _this.refs.specValueTable.getDataList();
+                    _this.refs.input_add.val('')
                     //_this.getSpecList();
                 })
             }
@@ -92,6 +94,7 @@ class SpecValueList extends Component {
         return (
             <div>
                 <NormalTable
+                    ref = "specValueTable"
                     showHeader = {false}
                     columns={Columns}
                     formData={formData}
@@ -101,7 +104,7 @@ class SpecValueList extends Component {
                         {getFieldDecorator('specValue', {
                             rules: [{required: true, message: '规格值称不能为空!', whitespace: true}],
                         })(
-                            <Input/>//ref
+                            <Input ref="input_add"/>//ref
                         )}
                     </FormItem>
                     <FormItem >
