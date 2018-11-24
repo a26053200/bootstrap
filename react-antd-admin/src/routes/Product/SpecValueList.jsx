@@ -1,65 +1,25 @@
 import React, {Component} from 'react'
 import 'antd/dist/antd.css';
-import {Form, Input, Button} from 'antd';
 import AppConfig from "../../configs/AppConfig";
 import './style.css';
 import {sendAction2Business} from "../../utils/Net";
-import NormalTable from "../../components/Tables/NormalTable";
-import StringFieldForm from "../../components/Forms/StringForm";
+import AttributeTable from "../../components/Tables/AttributeTable";
 
-
-class SpecValueList extends Component {
+class SpecValueList extends Component
+{
     constructor(props)
     {
         console.log("SpecValueList constructor record.id:" + props.specId);
         super(props);
         this.state = {
-            specId: props.specId,
-            formData :
-                {
-                    listAction:
-                        {
-                            server : AppConfig.Get_Spec_Value_List.server,
-                            action : AppConfig.Get_Spec_Value_List.action,
-                            specId : props.specId
-                        },
-                    listCallback: this.OnGetSpecValueList,
-                    modCallback: this.onModify,
-                    delCallback: this.onDelete,
-                }
+            specId: props.specId
         };
     }
 
-    OnGetSpecValueList = (json) =>
+    render()
     {
-        let list =  json.data.beanList;
-        return list;
-    };
-
-    onAddHandleSubmit = (e) =>
-    {
-        this.refs.specValueTable.getDataList();
-    };
-
-    onModify = (record,callback) =>
-    {
-        let _this = this;
-    };
-
-    onDelete = (record,callback) =>
-    {
-        let _this = this;
-        //弹出确认框
-        AppConfig.Del_Spec_Value.id = record.id;
-        sendAction2Business(AppConfig.Del_Spec_Value, function ()
-        {
-            callback();
-        })
-    };
-
-    render() {
-        const {formData,specId} = this.state;
-        const Columns =
+        const {formData, visible, specId, defaultField} = this.state;
+        const columns =
             [
                 {
                     title: 'id',
@@ -82,27 +42,37 @@ class SpecValueList extends Component {
             ];
         return (
             <div>
-                <NormalTable
-                    ref = "specValueTable"
-                    bordered = {true}
-                    showHeader = {false}
-                    columns={Columns}
-                    formData={formData}
-                />
-                <StringFieldForm
-                    submitAction={
-                        {
-                            action:AppConfig.Add_Spec_Value.action,
-                            specId:specId,
-                        }
-                    }
-                    submitCallback={this.onAddHandleSubmit}
+                <AttributeTable
+                    showHeader={false}
+                    columns={columns}
                     fieldData={fieldData}
+                    addAction={AppConfig.Add_Spec_Value}
+                    defaultParams={{specId:specId}}
+                    delAction={AppConfig.Del_Spec_Value}
+                    listAction={{action: AppConfig.Get_Spec_Value_List, specId: specId}}
+                    getDefaultField={(record) =>
+                    {
+                        return {
+                            value: record.value
+                        }
+                    }}
+                    onFieldsModify={(record, fields, callback) =>
+                    {
+                        if (fields.value !== record.value)
+                        {
+                            console.log("handleModify", fields.value);
+                            sendAction2Business(AppConfig.Mod_Spec_Value,
+                                {id: record.id, specId: specId, value: fields.value},
+                                function ()
+                                {
+                                    callback();
+                                })
+                        }
+                    }}
                 />
             </div>
         )
     }
 }
-const SpecValueListForm = Form.create()(SpecValueList);
 
-export default SpecValueListForm;
+export default SpecValueList;

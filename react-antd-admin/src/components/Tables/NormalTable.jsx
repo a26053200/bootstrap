@@ -71,7 +71,7 @@ class NormalTable extends Component
     {
         let _this = this;
         let formData = this.state.formData;
-        sendAction2Business(formData.listAction, function (json)
+        sendAction2Business(formData.listAction.action, formData.listAction,function (json)
         {
             let list =  json.data.beanList;
             formData.listCallback(json);

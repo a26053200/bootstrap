@@ -26,7 +26,7 @@ class Login extends Component {
     quickLogin = () => {
         console.log("start quick login..");
         let _this = this;
-        sendAction2Business(AppConfig.Quick_Login,function (json)
+        sendAction2Business(AppConfig.Quick_Login,{profileId: "oqZlN5Qw3-Ch1WqidzgW9DX5uGg0"},function (json)
         {
             //保存玩家信息
             AppData.sellerInfo = json.data.seller_info;

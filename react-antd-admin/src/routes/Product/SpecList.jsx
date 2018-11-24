@@ -9,8 +9,7 @@ import {sendAction2Business} from '../../utils/Net';
 import NormalTable from "../../components/Tables/NormalTable";
 import StringFieldForm from "../../components/Forms/StringForm";
 import ModalStringForm from "../../components/Forms/ModalStringForm";
-
-const FormItem = Form.Item;
+import AttributeTable from "../../components/Tables/AttributeTable";
 
 class SpecList extends Component
 {
@@ -18,14 +17,14 @@ class SpecList extends Component
     {
         super(props);
         this.state = {
-            visible:false,
+            visible: false,
+            defaultField: [],
             handleModify: null,
             formData:
                 {
                     listAction:
                         {
-                            server: AppConfig.Get_Spec_List.server,
-                            action: AppConfig.Get_Spec_List.action
+                            action: AppConfig.Get_Spec_List
                         },
                     listCallback: this.OnGetSpecList,
                     modCallback: this.onShowModify,
@@ -33,48 +32,6 @@ class SpecList extends Component
                 }
         };
     }
-
-    OnGetSpecList = (json) =>
-    {
-        let list = json.data.beanList;
-        AppData.specList = list;
-        return list;
-    };
-
-    onAddHandleSubmit = (json) =>
-    {
-        this.refs.specTable.getDataList();
-    };
-
-    onShowModify = (record, callback) =>
-    {
-        console.log("onShowModify")
-        let _this = this;
-        this.setState({ visible: true });
-        this.state.handleModify = (name,number) =>
-        {
-            AppConfig.Mod_Spec.name = name;
-            AppConfig.Mod_Spec.number = number;
-            sendAction2Business(AppConfig.Mod_Spec, function ()
-            {
-                callback();
-            })
-        };
-    };
-
-    handleCancel = () => {};
-
-    onDelete = (record, callback) =>
-    {
-        let _this = this;
-        //弹出确认框
-        AppConfig.Del_Spec.id = record.id
-        sendAction2Business(AppConfig.Del_Spec, function ()
-        {
-            _this.refs.specTable.getDataList();
-            callback();
-        })
-    };
 
     //详情表格
     expandedRowRender = (record, index, indent, expanded) =>
@@ -91,9 +48,9 @@ class SpecList extends Component
 
     render()
     {
-        const {formData} = this.state;
+        const {formData, visible, defaultField} = this.state;
         const paths = this.props.match.params.path.split(",");
-        const Columns =
+        const columns =
             [
                 {
                     title: 'id',
@@ -132,29 +89,37 @@ class SpecList extends Component
         return (
             <div>
                 <MyBreadcrumb paths={paths}/>
-                <StringFieldForm
-                    submitAction={AppConfig.Add_Spec}
-                    submitCallback={this.onAddHandleSubmit}
+                <AttributeTable
+                    columns={columns}
                     fieldData={fieldData}
-                />
-                <NormalTable
-                    ref="specTable"
-                    pagination = "Bottom"
-                    columns={Columns}
+                    addAction={AppConfig.Add_Spec}
+                    delAction={AppConfig.Del_Spec}
+                    listAction={{action: AppConfig.Get_Spec_List}}
+                    getDefaultField={(record) =>
+                    {
+                        return {
+                            name: record.name,
+                            number: record.number
+                        }
+                    }}
+                    onFieldsModify={(record, fields, callback) =>
+                    {
+                        if (fields.name !== record.number && fields.number !== record.number)
+                        {
+                            console.log("handleModify", fields.name);
+                            sendAction2Business(AppConfig.Mod_Spec,
+                                {id: record.id, name: fields.name, number: fields.number},
+                                function ()
+                                {
+                                    callback();
+                                })
+                        }
+                    }}
                     expandedRowRender={this.expandedRowRender}
-                    formData={formData}
-                />
-                <ModalStringForm
-                    visible={this.state.visible}
-                    fieldData={fieldData}
-                    onCancel={this.handleCancel}
-                    onOk={this.state.handleModify}
                 />
             </div>
         )
     }
 }
 
-const SpecListForm = Form.create()(SpecList);
-
-export default SpecListForm;
+export default SpecList;

@@ -8,11 +8,17 @@ const hostUrl = AppConfig.hostUrl;
  * @param actionData
  * @param callback
  */
-export function sendAction2Business(actionData, callback)
+export function sendAction2Business(action, actionData, callback)
 {
-    console.log("[send]" + JSON.stringify(actionData));
+    if( typeof(actionData) === 'function')
+    {
+        callback = actionData
+        actionData = {}
+    }
     actionData.server = "BusinessServer";
+    actionData.action = action;
     actionData.client = "web";
+    console.log("[send]" + JSON.stringify(actionData));
     let _this = this;
     $.post(hostUrl, JSON.stringify(actionData),
         function (result, status)
