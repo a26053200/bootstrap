@@ -50,8 +50,8 @@ class BrandList extends Component
                 <AttributeTable
                     columns={columns}
                     fieldData={fieldData}
-                    addAction={AppConfig.Add_Brand}
-                    delAction={AppConfig.Del_Brand}
+                    addAction={{action: AppConfig.Add_Brand}}
+                    delAction={{action:AppConfig.Del_Brand}}
                     listAction={{action: AppConfig.Get_Brand_List}}
                     getDefaultField={(record) =>
                     {

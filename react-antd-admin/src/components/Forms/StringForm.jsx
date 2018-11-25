@@ -10,7 +10,6 @@ class StringForm extends Component
     {
         super(props);
         this.state = {
-            defaultParams: (props.defaultParams == null ? {} : props.defaultParams),
             fieldData: props.fieldData,
             submitAction: props.submitAction,
             submitCallback: props.submitCallback,
@@ -25,13 +24,13 @@ class StringForm extends Component
         {
             if (!err)
             {
-                let params = this.state.defaultParams;
+                let params = this.state.submitAction;
                 for (let i = 0; i < this.state.fieldData.length; i++)
                 {
                     let field = this.state.fieldData[i];
                     params[field.fieldName] = values[field.fieldName];
                 }
-                sendAction2Business(_this.state.submitAction,
+                sendAction2Business(_this.state.submitAction.action,
                     params,
                     function (json)
                     {

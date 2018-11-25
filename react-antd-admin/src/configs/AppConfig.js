@@ -57,12 +57,17 @@ const AppConfig = {
     Mod_Brand: "brand@mod_brand",
 
     /**
-     * 品类列表
+     * 分类列表
      */
     Get_Category_List: "category@list_category",
 
     /**
-     * 添加品类
+     * 分类子列表
+     */
+    Get_Category_Sublist: "category@viceList_category",
+
+    /**
+     * 添加分类
      */
     Add_Category: "category@add_category",
 

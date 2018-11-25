@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import 'antd/dist/antd.css';
 import AppConfig from "../../configs/AppConfig";
-import './style.css';
 import {sendAction2Business} from "../../utils/Net";
 import AttributeTable from "../../components/Tables/AttributeTable";
 
@@ -46,9 +45,8 @@ class SpecValueList extends Component
                     showHeader={false}
                     columns={columns}
                     fieldData={fieldData}
-                    addAction={AppConfig.Add_Spec_Value}
-                    defaultParams={{specId:specId}}
-                    delAction={AppConfig.Del_Spec_Value}
+                    addAction={{action: AppConfig.Add_Spec_Value, specId: specId}}
+                    delAction={{action: AppConfig.Del_Spec_Value, specId: specId}}
                     listAction={{action: AppConfig.Get_Spec_Value_List, specId: specId}}
                     getDefaultField={(record) =>
                     {

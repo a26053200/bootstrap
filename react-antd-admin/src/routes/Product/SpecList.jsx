@@ -1,14 +1,9 @@
 import React, {Component} from 'react'
 import 'antd/dist/antd.css';
-import {Form, Input, Table, Button, Popconfirm, Divider} from 'antd';
 import MyBreadcrumb from "../../components/MyBreadcrumb/index";
 import AppConfig from "../../configs/AppConfig";
-import AppData from "../../AppData";
 import SpecValueList from '../../routes/Product/SpecValueList';
 import {sendAction2Business} from '../../utils/Net';
-import NormalTable from "../../components/Tables/NormalTable";
-import StringFieldForm from "../../components/Forms/StringForm";
-import ModalStringForm from "../../components/Forms/ModalStringForm";
 import AttributeTable from "../../components/Tables/AttributeTable";
 
 class SpecList extends Component
@@ -33,7 +28,7 @@ class SpecList extends Component
         };
     }
 
-    //详情表格
+    //规格值
     expandedRowRender = (record, index, indent, expanded) =>
     {
         let specId = record.id;
@@ -92,8 +87,8 @@ class SpecList extends Component
                 <AttributeTable
                     columns={columns}
                     fieldData={fieldData}
-                    addAction={AppConfig.Add_Spec}
-                    delAction={AppConfig.Del_Spec}
+                    addAction={{action:AppConfig.Add_Spec}}
+                    delAction={{action:AppConfig.Del_Spec}}
                     listAction={{action: AppConfig.Get_Spec_List}}
                     getDefaultField={(record) =>
                     {

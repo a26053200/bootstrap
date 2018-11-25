@@ -66,7 +66,8 @@ class AttributeTable extends Component
     {
         let _this = this;
         //弹出确认框
-        sendAction2Business(this.state.delAction, {id: record.id}, function ()
+        this.state.delAction.id = record.id;
+        sendAction2Business(this.state.delAction.action, this.state.delAction, function ()
         {
             _this.refs.normalTable.getDataList();
             callback();
@@ -76,12 +77,11 @@ class AttributeTable extends Component
     render()
     {
         const {formData, visible, defaultField, addAction} = this.state;
-        const {columns, fieldData, expandedRowRender, showHeader, pagination, defaultParams} = this.props;
+        const {columns, fieldData, expandedRowRender, showHeader, pagination} = this.props;
         return (
             <div>
                 <StringFieldForm
                     submitAction={addAction}
-                    defaultParams={defaultParams}
                     submitCallback={this.onAddHandleSubmit}
                     fieldData={fieldData}
                 />
